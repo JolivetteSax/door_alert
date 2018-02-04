@@ -8,6 +8,7 @@ echo "in" > /sys/class/gpio/gpio4/direction
 trap 'echo "4" > /sys/class/gpio/unexport' 0
 
 last=0
+prop_pid=''
 while true; do 
 
     # It's unnecessary to read the state of the pin more often
@@ -23,7 +24,16 @@ while true; do
       date=`date "+%b %d %Y"`
       if [ $status -eq 1 ] ; then
         verb="opened"
+        # Immediately send alert
         sudo ./open_alert.sh &> /dev/null &
+        # door prop occurs independently 
+        sudo ./door_prop.sh &> /dev/null &
+        prop_pid=$!
+      else
+        if [ $prop_pid ] ; then
+          kill $prop_pid
+          unset prop_pid
+        fi
       fi
 
       # This script outputs the simplest possible log
