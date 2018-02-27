@@ -33,11 +33,13 @@ Magnetic door/window GPIO project kit
  - send_sms
    - You provide - twilio CURL statement with whatever else you want 
 
-The open_alert program will look at phone_numbers.txt for a list of recipients
-
 ## Installing
 
-In order to make this run automatically, edit this file:
+The open_alert program will look at phone_numbers.txt for a list of recipients
+
+Set up the raspberry pi to connect to your wifi, it will reconnect on startup.
+
+In order to make the PI run the door_alert automatically, edit this file:
 
 .config/lxsession/LXDE-pi/autostart
 
